@@ -3,13 +3,17 @@ import os
 
 def search_folder(folder_path):
     annotation_folders = []
+    contents=[]
     objects = []
 
-    contents = os.listdir(folder_path)
-    folders = [folder for folder in contents if os.path.isdir(os.path.join(folder_path, folder))]
-    
-    for folder in folders:
-        for root, dirs, files in os.walk(folder):
+    for root, dirs, files in os.walk(folder_path):
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            contents.append(dir_path)
+
+
+    for folder in contents:
+        for root, dirs, files in os.walk(folder_path):
             if 'annotation' in dirs:
                 annotation_folders.append(os.path.join(root, 'annotation'))
 

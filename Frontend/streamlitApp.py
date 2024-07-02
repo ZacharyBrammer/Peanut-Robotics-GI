@@ -15,3 +15,6 @@ with st.form("prompt"):
    submitted = st.form_submit_button("Submit")
    if submitted:
        st.write(Prompt)
+       st.image('Frontend/1.jpg', caption='placeholder1')
+       st.image('Frontend/2.jpg', caption='placeholder2')
+       st.image('Frontend/3.jpg', caption='placeholder3')

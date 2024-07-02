@@ -1,0 +1,56 @@
+[
+	{
+		"status": "waiting_label",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "submit_mturk",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "waiting_label",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "submit_mturk",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "waiting_label",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "submit_mturk",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "submit_mturk",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "submit_mturk",
+		"time": 0,
+		"assignmentId": "ADMIN",
+		"workerId": "ADMIN"
+	},
+	{
+		"status": "waiting_check",
+		"time": "2014-10-14T21:06:25Z",
+		"assignmentId": "3L0KT67Y8FQX6PM6ZL0ONH58D74SYM",
+		"workerId": "A38SY1UVPAUJF3"
+	}
+]

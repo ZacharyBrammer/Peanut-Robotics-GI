@@ -1,0 +1,1 @@
+{"date":"Sat, 25 Oct 2014 01:45:36 GMT","name":"rgbd_voc/002946_2014-06-26_15-56-31_094959634447_rgbf000044-resize","frames":[{}],"objects":[{"name":"bathroom","polygon":[{"Ymin":-1,"Ymax":1.37,"rectangle":false,"X":[-1.89,4.29,5.01,0.07],"Z":[0.76,3.44,2.08,0]}]}],"extrinsics":"20140704233319.txt","conflictList":[null],"fileList":["0000044.jpg"]}

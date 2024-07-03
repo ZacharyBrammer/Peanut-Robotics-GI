@@ -22,3 +22,4 @@ for i, text in enumerate(texts):
     print(f"Embedding shape: {embedding.shape}")
     print(f"Embedding: {embedding.tolist()}")
     print("=" * 50)
+    

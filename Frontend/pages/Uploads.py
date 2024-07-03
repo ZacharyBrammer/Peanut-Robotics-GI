@@ -1,6 +1,13 @@
 import streamlit as st
 import os
 
+# Define the path to the uploads directory in the root folder
+uploads_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'uploads')
+
+# Ensure the 'uploads' directory exists
+if not os.path.exists(uploads_dir):
+    os.makedirs(uploads_dir)
+    
 st.set_page_config(page_title="Uploads")
 # Ensure the 'uploads' directory exists
 # if not os.path.exists('uploads'):

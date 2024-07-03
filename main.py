@@ -3,15 +3,15 @@ from datasets import load_dataset
 from enum import Enum
 import numpy
 from tqdm import tqdm
-import torch #the install for this one takes a while
+import torch 
 import clip 
 import pyarrow as pa
 # from torchvision import models, transforms
 from IPython.display import display
 import pandas
-import PIL
 from PIL import Image
-    
+import os
+# import cv2
 import requests
 from io import BytesIO
 
@@ -121,6 +121,11 @@ def image_search(id):
 
 print(image_search(1200))
 
+# def load_image(path):
+#     image = cv2.imread(path)
+#     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+#     return image
+
 def embed_txt(txt):
     text = clip.tokenize([txt]).to(device)
     embs = model.encode_text(text)
@@ -139,3 +144,27 @@ def text_search(text):
 
 
 text_search("a full white dog")
+
+# reads trajectory data file
+def read_trajectory(path):
+    trajectory_data = pandas.read_csv(path)
+    return trajectory_data
+
+def store_data(db, image_path, embeddings, trajectory_data):
+    db.insert('image_embeddings', {
+        'image_path': image_path,
+        'embedding': embeddings.tolist(),
+        'trajectory_data': trajectory_data
+    })
+
+def process_images(dir_path, trajectory_path):
+    db = lancedb.LanceDb('embeddings.db')
+    db.create_table('image_embeddings', columns=['image_path', 'embedding', 'trajectory_data'])
+    trajectory_data = read_trajectory(trajectory_path)
+    for file in os.listdir(dir_path):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+            image_path = os.path.join(dir_path, file)
+            embedding = gen_embeddings(image_path)
+            rel_data = trajectory_data.loc[trajectory_data['image']==file].to_dict(orient='records')[0]
+            store_data(db, image_path, embedding, rel_data)
+            print(f"Processed and stored data for {image_path}")

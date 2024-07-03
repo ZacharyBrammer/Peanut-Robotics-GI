@@ -15,7 +15,7 @@ st.set_page_config(page_title="Uploads")
 
 st.title('Image Upload')
 
-uploaded_files = st.file_uploader("Choose image files", type=["png", "jpg", "jpeg", "gif"], accept_multiple_files=True)
+uploaded_files = st.file_uploader("Choose image files", type=["png", "jpg", "jpeg"], accept_multiple_files=True)
 
 if uploaded_files:
     for uploaded_file in uploaded_files:
@@ -24,3 +24,4 @@ if uploaded_files:
             f.write(uploaded_file.getbuffer())
         st.success(f"Saved file: {uploaded_file.name}")
         st.image('uploads/'+uploaded_file.name, caption='lorem ipsum')
+

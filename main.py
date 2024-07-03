@@ -89,8 +89,8 @@ def process_images(dir_path, trajectory_path):
     )
 
     tbl = db.create_table("image_embeddings", schema=schema, mode="overwrite")
-    
-    
+
+    data = []
 
     trajectory_data = read_trajectory(trajectory_path)
     for file in os.listdir(dir_path):
@@ -101,15 +101,23 @@ def process_images(dir_path, trajectory_path):
             # store_data(db, image_path, embedding, rel_data)
             print(f"Processed and stored data for {image_path}")
 
+
             
-            
-            data = pandas.DataFrame({
+            # data = pandas.DataFrame({
+            #     'image_path': image_path,
+            #     'embedding': embedding,
+            #     'trajectory_data': trajectory_data
+            #     # 'trajectory_data': rel_data
+            # })
+
+            data.append({
                 'image_path': image_path,
                 'embedding': embedding,
                 'trajectory_data': trajectory_data
                 # 'trajectory_data': rel_data
             })
-            tbl.add(data)
+
+    tbl.add(data)
 
 process_images("40777060/40777060_frames/lowres_wide/", "40777060/40777060_3dod_annotation.json")
 

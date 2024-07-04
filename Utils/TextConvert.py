@@ -16,10 +16,10 @@ def embed_txt(txt):
     
     return embeddings
 
-for i, text in enumerate(texts):
-    embedding = embed_txt(text)
-    print(f"Text: {text}")
-    print(f"Embedding shape: {embedding.shape}")
-    print(f"Embedding: {embedding.tolist()}")
-    print("=" * 50)
+# for i, text in enumerate(texts):
+#     embedding = embed_txt(text)
+#     print(f"Text: {text}")
+#     print(f"Embedding shape: {embedding.shape}")
+#     print(f"Embedding: {embedding.tolist()}")
+#     print("=" * 50)
     

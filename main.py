@@ -96,7 +96,11 @@ def process_images(dir_path, trajectory_path):
     trajectories = open(trajectory_path, "r").read().split("\n")
 
     # trajectory_data = read_trajectory(trajectory_path)
-    for file in os.listdir(dir_path):
+
+    fileList = os.listdir(dir_path)
+
+    fileList.sort()
+    for file in fileList:
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             image_path = os.path.join(dir_path, file)
             embedding = gen_embeddings(Image.open(image_path))

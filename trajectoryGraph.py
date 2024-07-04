@@ -4,10 +4,6 @@ import os
 
 file_path = r'C:\Users\carly\OneDrive\Pictures\Documents\GitHub\Peanut-Robotics-GI\40777060\40777060_frames\lowres_wide.traj'
 
-# Check if the file exists
-if not os.path.isfile(file_path):
-    raise FileNotFoundError(f"The file {file_path} does not exist.")
-
 #read X and Y values of camera + list
 x_positions = []
 y_positions = []

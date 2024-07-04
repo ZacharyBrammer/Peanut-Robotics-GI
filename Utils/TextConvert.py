@@ -1,25 +1,22 @@
-from transformers import CLIPProcessor, CLIPModel
+import clip
 import torch
 
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-
-texts = ['sample text', 'example text']
-
-dummy_pixels = torch.zeros([2, 3, 224, 224])
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model, preprocess = clip.load("ViT-B/32", device=device)
 
 def embed_txt(txt):
-    inputs = processor(txt, images=dummy_pixels, return_tensors="pt", padding=True, truncation=True)
-    with torch.no_grad():
-        outputs = model(**inputs)
-        embeddings = outputs['logits_per_image']  # Logits per image is used for text
-    
-    return embeddings
+    text = clip.tokenize([txt]).to(device)
+    embs = model.encode_text(text)
+    return embs.detach().cpu().numpy()[0].tolist()
 
-for i, text in enumerate(texts):
-    embedding = embed_txt(text)
-    print(f"Text: {text}")
-    print(f"Embedding shape: {embedding.shape}")
-    print(f"Embedding: {embedding.tolist()}")
-    print("=" * 50)
+# print(embed_txt("Black and white dog"))
+
+    # def embed_txt(txt):
+#     inputs = processor(txt, images=dummy_pixels, return_tensors="pt", padding=True, truncation=True)
+#     with torch.no_grad():
+#         outputs = model(**inputs)
+#         embeddings = outputs['logits_per_image']  # Logits per image is used for text
+
     
+    
+#     return embeddings

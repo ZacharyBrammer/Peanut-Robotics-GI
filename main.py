@@ -4,7 +4,7 @@ from enum import Enum
 import numpy
 from tqdm import tqdm
 import torch 
-import clip 
+import clip
 import pyarrow as pa
 # from torchvision import models, transforms
 from IPython.display import display
@@ -14,6 +14,7 @@ import os
 # import cv2
 import requests
 from io import BytesIO
+import trajectory
 
 testImagePath = load_dataset("CVdatasets/ImageNet15_animals_unbalanced_aug1", split="train") #should also work with a dataset of images
 
@@ -58,8 +59,7 @@ emb_img = gen_embeddings(img)
 
 # reads trajectory data file
 def read_trajectory(path):
-    # trajectory_data = pandas.read_csv(path)
-    trajectory_data = "placeholder"
+    trajectory_data = pandas.read_csv(path)
     return trajectory_data
 
 # def store_data(db, image_path, embeddings, trajectory_data):
@@ -92,7 +92,10 @@ def process_images(dir_path, trajectory_path):
 
     data = []
 
-    trajectory_data = read_trajectory(trajectory_path)
+    counter = 0
+    trajectories = open(trajectory_path, "r").read().split("\n")
+
+    # trajectory_data = read_trajectory(trajectory_path)
     for file in os.listdir(dir_path):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             image_path = os.path.join(dir_path, file)
@@ -113,15 +116,23 @@ def process_images(dir_path, trajectory_path):
             data.append({
                 'image_path': image_path,
                 'embedding': embedding,
-                'trajectory_data': trajectory_data
+                # 'trajectory_data': trajectory_data
                 # 'trajectory_data': rel_data
+                'trajectory_data': trajectories[counter]
             })
+
+            counter += 1
 
     tbl.add(data)
 
-process_images("40777060/40777060_frames/lowres_wide/", "40777060/40777060_3dod_annotation.json")
+    return tbl
 
+table = process_images("40777060/40777060_frames/lowres_wide/", "40777060/40777060_frames/lowres_wide.traj")
 
+res = table.search(gen_embeddings(Image.open("40777060/40777060_frames/lowres_wide/40777060_98.764.png"))).limit(5).to_pandas()
+print(res)
+for i in range(5):
+    print(res[i]["trajectory_data"])
 
 
 

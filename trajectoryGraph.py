@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-file_path = r'C:\Users\carly\OneDrive\Pictures\Documents\GitHub\Peanut-Robotics-GI\40777060\40777060_frames\lowres_wide.traj'
+file_path = r'40777060\40777060_frames\lowres_wide.traj'
 
 #read X and Y values of camera + list
 x_positions = []

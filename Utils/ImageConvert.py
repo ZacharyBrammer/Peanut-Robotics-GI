@@ -16,25 +16,6 @@ import requests
 from io import BytesIO
 import trajectory
 
-testImagePath = load_dataset("CVdatasets/ImageNet15_animals_unbalanced_aug1", split="train") #should also work with a dataset of images
-
-class Animal(Enum):
-    italian_greyhound = 0
-    coyote = 1
-    beagle = 2
-    rottweiler = 3
-    hyena = 4
-    greater_swiss_mountain_dog = 5
-    Triceratops = 6
-    french_bulldog = 7
-    red_wolf = 8
-    egyption_cat = 9
-    chihuahua = 10
-    irish_terrier = 11
-    tiger_cat = 12
-    white_wolf = 13
-    timber_wolf = 14
-
 
 # print(testImagePath[0])
 # print(Animal(testImagePath[0]["labels"]).name)
@@ -96,11 +77,7 @@ def process_images(dir_path, trajectory_path):
     trajectories = open(trajectory_path, "r").read().split("\n")
 
     # trajectory_data = read_trajectory(trajectory_path)
-
-    fileList = os.listdir(dir_path)
-
-    fileList.sort()
-    for file in fileList:
+    for file in tqdm(os.listdir(dir_path)):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             image_path = os.path.join(dir_path, file)
             embedding = gen_embeddings(Image.open(image_path))
@@ -134,9 +111,6 @@ def process_images(dir_path, trajectory_path):
 table = process_images("40777060/40777060_frames/lowres_wide/", "40777060/40777060_frames/lowres_wide.traj")
 
 res = table.search(gen_embeddings(Image.open("40777060/40777060_frames/lowres_wide/40777060_98.764.png"))).limit(5).to_pandas()
-print(res)
-for i in range(5):
-    print(res[i]["trajectory_data"])
 
 
 

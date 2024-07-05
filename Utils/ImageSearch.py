@@ -11,6 +11,6 @@ print(db.table_names())
 
 table = db.open_table("image_embeddings")
 
-
-res = table.search(TextConvert.embed_txt("Sofa")).limit(1).to_pandas()
-print(res)
+def imageSearch(txt):
+    res = table.search(TextConvert.embed_txt(txt)).limit(1).to_pandas()
+    return res

@@ -83,7 +83,7 @@ def process_images(dir_path, trajectory_path):
             embedding = gen_embeddings(Image.open(image_path))
             # rel_data = trajectory_data.loc[trajectory_data['image']==file].to_dict(orient='records')[0]
             # store_data(db, image_path, embedding, rel_data)
-            #print(f"Processed and stored data for {image_path}")
+            print(f"Processed and stored data for {image_path}")
 
 
             

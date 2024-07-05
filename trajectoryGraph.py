@@ -4,7 +4,7 @@ import os
 import streamlit as st
 
 def graphTraj(x,y):
-    file_path = r'40777060\40777060_frames\lowres_wide.traj'
+    file_path = r'40777060/40777060_frames/lowres_wide.traj'
 
     #read X and Y values of camera + list
     x_positions = []
@@ -20,7 +20,7 @@ def graphTraj(x,y):
     #plot trajectory
     plt.figure(figsize=(10, 7))
     plt.plot(x_positions, y_positions, marker='s', ms=5, mfc='b',mec='b', color='c', label='Trajectory')
-    plt.plot(x_positions[x],y_positions[y],marker='*', ms='15', mec='r', mfc='r', label = 'Position of camera')
+    plt.plot(x, y,marker='*', ms='15', mec='r', mfc='r', label = 'Position of camera')
     plt.xlabel('X Position')
     plt.ylabel('Y Position')
     plt.title('Camera Trajectory')

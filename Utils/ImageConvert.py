@@ -15,6 +15,7 @@ import os
 import requests
 from io import BytesIO
 import trajectory
+import regex as re
 
 
 # print(testImagePath[0])
@@ -50,6 +51,25 @@ def read_trajectory(path):
 #         'trajectory_data': trajectory_data
 #     })
 
+def extract_number_from_filename(filename):
+    # Define the regex pattern to match digits followed by a decimal and more digits
+    pattern = r'\d+\.\d+\.png$'
+  
+    # Use re.search to find the pattern in the filename
+    match = re.search(pattern, filename)
+  
+    if match:
+        # Extract the matched part (number at the end)
+        number_str = match.group(0)
+      
+        # Convert to float if needed
+        number = float(number_str[:-4])  # Convert to float and remove ".png"
+      
+        return number
+    else:
+        return -1  # Return -1 if no match found
+
+
 def process_images(dir_path, trajectory_path):
     # db = lancedb.LanceDb('embeddings.db')
     db = lancedb.connect('embeddings.db')
@@ -76,8 +96,13 @@ def process_images(dir_path, trajectory_path):
     counter = 0
     trajectories = open(trajectory_path, "r").read().split("\n")
 
+    # files = sorted(os.listdir(dir_path))
+    files = os.listdir(dir_path)#.sort(key=extract_number_from_filename)
+    files.sort(key=extract_number_from_filename)
+
+
     # trajectory_data = read_trajectory(trajectory_path)
-    for file in tqdm(os.listdir(dir_path)):
+    for file in tqdm(files):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             image_path = os.path.join(dir_path, file)
             embedding = gen_embeddings(Image.open(image_path))

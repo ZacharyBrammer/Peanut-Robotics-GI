@@ -5,7 +5,10 @@ import streamlit as st
 import sys
 
 from Utils.TextConvert import embed_txt
+from Utils.ImageSearch import imageSearch
+from Utils.rotateImage import rotate_image
 from trajectoryGraph import graphTraj
+from PIL import Image
 
 # Set page configuration
 st.set_page_config(
@@ -23,14 +26,22 @@ with st.form("prompt"):
     submitted = st.form_submit_button("Submit")
     
     if submitted:
-        st.write(Prompt)
-        embedPrompt = embed_txt(Prompt)
-        out = "static/1.jpg" #placeholder. output goes here
+        embbededText = embed_txt(Prompt)
+        imag = imageSearch(embbededText)
+        image_path_str = str(imag.image_path.iloc[0])
+        out = rotate_image(Image.open(image_path_str))
         # Use columns to place the image and graph side by side
         col1, col2 = st.columns(2)
+
+        trajectory = imag['trajectory_data'].array[0].split()
+
+        print(trajectory)
+
+        imag_x = float(trajectory[-3])
+        imag_y = float(trajectory[-2])
         
         with col1:
-            st.image(out, caption= out + ", an image of " + Prompt)
+            st.image(out, caption= image_path_str + ", an image of " + Prompt)
         
         with col2:
-            graphTraj(0, 0)  # 0,0 is a placeholder and will be replaced
+            graphTraj(imag_x, imag_y)  # 0,0 is a placeholder and will be replaced

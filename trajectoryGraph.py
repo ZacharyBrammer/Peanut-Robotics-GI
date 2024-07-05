@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import streamlit as st
 
 def graphTraj(x,y):
     file_path = r'40777060\40777060_frames\lowres_wide.traj'
@@ -25,4 +26,4 @@ def graphTraj(x,y):
     plt.title('Camera Trajectory')
     plt.legend()
     plt.grid()
-    plt.show()
+    st.pyplot(plt)

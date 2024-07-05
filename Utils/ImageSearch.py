@@ -7,7 +7,7 @@ import lancedb
 
 db = lancedb.connect("embeddings.db")
 
-print(db.table_names())
+#print(db.table_names())
 
 table = db.open_table("image_embeddings")
 

@@ -32,9 +32,16 @@ with st.form("prompt"):
         out = rotate_image(Image.open(image_path_str))
         # Use columns to place the image and graph side by side
         col1, col2 = st.columns(2)
+
+        trajectory = imag['trajectory_data'].array[0].split()
+
+        print(trajectory)
+
+        imag_x = float(trajectory[-3])
+        imag_y = float(trajectory[-2])
         
         with col1:
             st.image(out, caption= image_path_str + ", an image of " + Prompt)
         
         with col2:
-            graphTraj(0, 0)  # 0,0 is a placeholder and will be replaced
+            graphTraj(imag_x, imag_y)  # 0,0 is a placeholder and will be replaced

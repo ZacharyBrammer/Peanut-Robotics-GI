@@ -4,7 +4,7 @@ import os
 import streamlit as st
 
 def graphTraj(x,y):
-    file_path = r'40777060\40777060_frames\lowres_wide.traj'
+    file_path = r'40777060/40777060_frames/lowres_wide.traj'
 
     #read X and Y values of camera + list
     x_positions = []

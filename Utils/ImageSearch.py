@@ -1,4 +1,3 @@
-import TextConvert
 # import ImageConvert
 #import os
 import lancedb
@@ -12,5 +11,5 @@ db = lancedb.connect("embeddings.db")
 table = db.open_table("image_embeddings")
 
 def imageSearch(txt):
-    res = table.search(TextConvert.embed_txt(txt)).limit(1).to_pandas()
+    res = table.search(txt).limit(1).to_pandas()
     return res

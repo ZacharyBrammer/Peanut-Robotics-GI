@@ -141,6 +141,23 @@ for i in range(5):
 
 # 3d 
 
+def load_camera_info(camera_info_file):
+    camera_info = pandas.read_csv(camera_info_file)
+    return camera_info
+
+# Function to load a depth image
+def load_depth_image(image_path):
+    depth_image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)  # Preserve depth information
+    if depth_image is None:
+        raise FileNotFoundError(f"Image not found: {image_path}")
+    return depth_image
+
+# Function to get distance data from a depth image
+def get_distance_data(depth_image, scale_factor=0.001):
+    # Convert depth image to meters (assuming depth image is in millimeters)
+    distance_data = depth_image.astype(np.float32) * scale_factor
+    return distance_data
+
 # Camera Calibration // parameters will change depending on camera so need to be adjusted
 fx = 800  # Focal length in x
 fy = 800  # Focal length in y

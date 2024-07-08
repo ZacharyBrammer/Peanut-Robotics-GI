@@ -41,7 +41,7 @@ with st.form("prompt"):
         imag_y = float(trajectory[-2])
         
         with col1:
-            st.image(out, caption= image_path_str + ", an image of " + Prompt)
+            st.image(out, width = 330, caption= image_path_str + ", an image of " + Prompt)
         
         with col2:
             graphTraj(imag_x, imag_y)  # 0,0 is a placeholder and will be replaced

@@ -16,14 +16,17 @@ import requests
 from io import BytesIO
 import trajectory
 import regex as re
-
+import rotateImage
+from PIL import Image
+import clip
 
 # print(testImagePath[0])
 # print(Animal(testImagePath[0]["labels"]).name)
 
 # load the pretrained model
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
+model, preprocess = clip.load("RN50", device=device)
+#original model ViT-B/32
 
 # gen embeddings for an image
 def gen_embeddings(image_path):
@@ -84,12 +87,12 @@ def process_images(dir_path, trajectory_path):
     schema = pa.schema(
         [
             pa.field("image_path", pa.string()),
-            pa.field("embedding", pa.list_(pa.float32(), 512)),
+            pa.field("embedding", pa.list_(pa.float32(), 1024)),
             pa.field("trajectory_data", pa.string()),
         ]
     )
 
-    tbl = db.create_table("image_embeddings", schema=schema, mode="overwrite")
+    tbl = db.create_table("rotated_image_embeddings", schema=schema, mode="overwrite")
 
     data = []
 
@@ -105,10 +108,11 @@ def process_images(dir_path, trajectory_path):
     for file in tqdm(files):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             image_path = os.path.join(dir_path, file)
-            embedding = gen_embeddings(Image.open(image_path))
+            rotatedImages = rotateImage.rotate_image(Image.open(image_path))
+            embedding = gen_embeddings(rotatedImages)
             # rel_data = trajectory_data.loc[trajectory_data['image']==file].to_dict(orient='records')[0]
             # store_data(db, image_path, embedding, rel_data)
-            print(f"Processed and stored data for {image_path}")
+            #print(f"Processed and stored data for {image_path}")
 
 
             

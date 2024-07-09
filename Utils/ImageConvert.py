@@ -14,7 +14,7 @@ import os
 # import cv2
 import requests
 from io import BytesIO
-import trajectory
+# import trajectory
 import regex as re
 
 

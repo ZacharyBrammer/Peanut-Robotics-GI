@@ -12,7 +12,7 @@ from PIL import Image
 import os
 import requests
 from io import BytesIO
-import trajectory
+# import trajectory
 import regex as re
 import rotateImage
 from PIL import Image

@@ -7,7 +7,7 @@ import sys
 from Utils.TextConvert import embed_txt
 from Utils.ImageSearch import imageSearch
 from Utils.rotateImage import rotate_image
-from trajectoryGraph import graphTraj
+from Utils.trajectoryGraph import graphTraj
 from PIL import Image
 
 # Set page configuration
@@ -22,6 +22,12 @@ st.title("Lorem ipsum dolor!")
 with st.form("prompt"):
     st.write("Prompt goes here:")
     Prompt = st.text_input("Prompt")
+    #User_path will default to default_path if it is empty
+    st.write("Different dataset? (optional):")
+    default_path = '40777060/40777060_frames/lowres_wide.traj'
+    user_path = st.text_input("Defaults to '40777060/40777060_frames/lowres_wide.traj, when using an upload, add 'uploads/' to the start of your filepath.", default_path)
+    if not user_path:
+        user_path = default_path
     # Every form must have a submit button
     submitted = st.form_submit_button("Submit")
     
@@ -44,4 +50,4 @@ with st.form("prompt"):
             st.image(out, caption= image_path_str + ", an image of " + Prompt)
         
         with col2:
-            graphTraj(imag_x, imag_y)  # 0,0 is a placeholder and will be replaced
+            graphTraj(imag_x, imag_y, user_path)  # 0,0 is a placeholder and will be replaced

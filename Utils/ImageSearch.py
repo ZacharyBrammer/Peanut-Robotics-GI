@@ -8,7 +8,7 @@ db = lancedb.connect("embeddings.db")
 
 #print(db.table_names())
 
-table = db.open_table("rotated_image_embeddings")
+table = db.open_table("dataset2_rotated_image_embeddings")
 
 def imageSearch(txt):
     res = table.search(txt).limit(1).to_pandas()

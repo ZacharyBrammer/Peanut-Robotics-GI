@@ -74,8 +74,7 @@ def process_images(dir_path, trajectory_path):
         ]
     )
 
-    # tbl = db.create_table(str(Path(dir_path).parent.parent), schema=schema, mode="overwrite")
-    # print("Created Table for " + str(Path(dir_path).parent.parent))
+    
     tbl = db.create_table(str(dir_path.split('/')[1]), schema=schema, mode="overwrite")
     print("Created Table for " + str(Path(dir_path.split('/')[1])))
 
@@ -105,10 +104,3 @@ def process_images(dir_path, trajectory_path):
     return tbl
 
 
-# path1 = sys.argv[1] #Images
-# path2 = sys.argv[2] #Trajectory
-# table = process_images(path1, path2)
-
-#40777060/40777060_frames/lowres_wide/
-#40777060/40777060_frames/lowres_wide.traj
-#res = table.search(gen_embeddings(Image.open("40777060/40777060_frames/lowres_wide/40777060_98.764.png"))).limit(5).to_pandas()

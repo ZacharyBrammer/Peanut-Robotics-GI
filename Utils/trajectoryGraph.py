@@ -1,31 +1,32 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import streamlit as st
 import WorldCoords as wc 
 
-file_path = r'40777060\40777060_frames\lowres_wide.traj'
+#r'40777060/40777060_frames/lowres_wide.traj
 
-#read X and Y values of camera + list
-x_positions = []
-y_positions = []
+def graphTraj(x,y, file_path):
 
-with open(file_path, 'r') as file:
-    for line in file:
-        values = line.split()
+    #read X and Y values of camera + list
+    x_positions = []
+    y_positions = []
 
-        x_positions.append(float(values[-3]))
-        y_positions.append(float(values[-2]))
-   
-#plot trajectory
-plt.figure(figsize=(10, 7))
-plt.plot(x_positions, y_positions, marker='s', ms=5, mfc='b',mec='b', color='c', label='Trajectory')
-plt.plot(x_positions[0],y_positions[0],marker='*', ms='15', mec='r', mfc='r', label = 'Starting Point')
+    with open(file_path, 'r') as file:
+        for line in file:
+            values = line.split()
 
-plt.plot(wc.x, wc.y, marker = 's',mfc='g',mec='g') #3d coords
-
-plt.xlabel('X Position')
-plt.ylabel('Y Position')
-plt.title('Camera Trajectory')
-plt.legend()
-plt.grid()
-plt.show()
+            x_positions.append(float(values[-3]))
+            y_positions.append(float(values[-2]))
+    
+    #plot trajectory
+    plt.figure(figsize=(10, 7))
+    plt.plot(x_positions, y_positions, marker='s', ms=5, mfc='b',mec='b', color='c', label='Trajectory')
+    plt.plot(wc.x, wc.y, marker = 's',mfc='g',mec='g') #3d coords
+    plt.plot(x, y,marker='*', ms='15', mec='r', mfc='r', label = 'Position of camera')
+    plt.xlabel('X Position')
+    plt.ylabel('Y Position')
+    plt.title('Camera Trajectory')
+    plt.legend()
+    plt.grid()
+    st.pyplot(plt)

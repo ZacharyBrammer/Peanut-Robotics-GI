@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import sys
+import os
 
 from Utils.TextConvert import embed_txt
 from Utils.ImageSearch import imageSearch
@@ -18,22 +19,35 @@ st.set_page_config(
 # Page Title
 st.title("Lorem ipsum dolor!")
 
+ #dropdown with everything 
+folder_path = "./embeddings.db"
+file_list = os.listdir(folder_path)
+selected_table = st.selectbox('Select a table', file_list)
+print( os.path.splitext(selected_table)[0])
+st.write(f'using:{selected_table}')
+
 # Create a form
 with st.form("prompt"):
     st.write("Prompt goes here:")
     Prompt = st.text_input("Prompt")
+
     #User_path will default to default_path if it is empty
     st.write("Different dataset? (optional):")
     default_path = '40777060/40777060_frames/lowres_wide.traj'
     user_path = st.text_input("Defaults to '40777060/40777060_frames/lowres_wide.traj, when using an upload, add 'uploads/' to the start of your filepath.", default_path)
     if not user_path:
         user_path = default_path
+    
+    st.title('File Selector App')
+    
+   
+
     # Every form must have a submit button
     submitted = st.form_submit_button("Submit")
     
     if submitted:
         embbededText = embed_txt(Prompt)
-        imag = imageSearch(embbededText)
+        imag = imageSearch(embbededText, str(os.path.splitext(selected_table)[0]))
         image_path_str = str(imag.image_path.iloc[0])
         out = rotate_image(Image.open(image_path_str))
         # Use columns to place the image and graph side by side

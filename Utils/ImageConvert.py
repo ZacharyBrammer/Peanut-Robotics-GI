@@ -14,10 +14,12 @@ import requests
 from io import BytesIO
 # import trajectory
 import regex as re
-import rotateImage
+from Utils import rotateImage
 from PIL import Image
 import clip
 import sys
+from pathlib import Path
+
 
 
 # load the pretrained model
@@ -64,7 +66,6 @@ def extract_number_from_filename(filename):
 def process_images(dir_path, trajectory_path):
     db = lancedb.connect('embeddings.db')
 
-
     schema = pa.schema(
         [
             pa.field("image_path", pa.string()),
@@ -73,13 +74,14 @@ def process_images(dir_path, trajectory_path):
         ]
     )
 
-    tbl = db.create_table("dataset2_rotated_image_embeddings", schema=schema, mode="overwrite")
+    
+    tbl = db.create_table(str(dir_path.split('/')[1]), schema=schema, mode="overwrite")
+    print("Created Table for " + str(Path(dir_path.split('/')[1])))
 
     data = []
 
     counter = 0
     trajectories = open(trajectory_path, "r").read().split("\n")
-
     files = os.listdir(dir_path)
     files.sort(key=extract_number_from_filename)
 
@@ -102,8 +104,3 @@ def process_images(dir_path, trajectory_path):
     return tbl
 
 
-path1 = sys.argv[1] #Images
-path2 = sys.argv[2] #Trajectory
-table = process_images(path1, path2)
-
-#res = table.search(gen_embeddings(Image.open("40777060/40777060_frames/lowres_wide/40777060_98.764.png"))).limit(5).to_pandas()

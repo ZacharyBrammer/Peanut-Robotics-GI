@@ -1,23 +1,17 @@
 import lancedb
-from datasets import load_dataset
 from enum import Enum
-import numpy
 from tqdm import tqdm
 import torch 
 import clip
 import pyarrow as pa
-from IPython.display import display
 import pandas
 from PIL import Image
 import os
 import requests
 from io import BytesIO
-# import trajectory
 import regex as re
 from Utils import rotateImage
 from PIL import Image
-import clip
-import sys
 from pathlib import Path
 
 

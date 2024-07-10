@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 uploads/
 embeddings.db/
-yolov3.weights
+yolov3.weights/

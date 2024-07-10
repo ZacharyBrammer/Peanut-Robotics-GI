@@ -30,7 +30,7 @@ def get_distance_data(depth_image, scale_factor=0.001):
     return distance_data
 
 def load_img_info(dbname, img):
-    img_name= os.path.splittext(img)[0] #loremipsum.png -> loremipsum
+    img_name= os.path.splitext(img)[0] #loremipsum.png -> loremipsum
     #'40777060\40777060_frames\lowres_depth\40777060_98.764.png'
     cam_depth = load_depth_image(os.path.join('./uploads', dbname, dbname+'_frames', 'lowres_depth', img_name+'.png'))
     #'40777060/40777060_frames\lowres_wide_intrinsics\40777060_98.764.pincam'
@@ -102,7 +102,7 @@ def load_img_info(dbname, img):
                 y = Y_c
                 # cx = center_x
                 # cy = center_y
-                
+
 
     # Visualization 
     # cv2.circle(image, (cx, cy), 5, (0, 255, 0), -1)

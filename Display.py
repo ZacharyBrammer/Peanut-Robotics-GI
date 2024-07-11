@@ -64,4 +64,5 @@ with st.form("prompt"):
             st.image(out, width = 330, caption= image_path_str + ", an image of " + Prompt)
         
         with col2:
-            graphTraj(imag_x, imag_y, user_path)  # 0,0 is a placeholder and will be replaced
+            print(image_path_str)
+            graphTraj(imag_x, imag_y, user_path, image_path_str.split("/")[5])  # 0,0 is a placeholder and will be replaced

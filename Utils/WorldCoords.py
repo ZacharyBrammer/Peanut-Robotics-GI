@@ -5,7 +5,7 @@ import torch
 from Utils import rotateImage
 
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
+# model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 
 def load_camera_info(camera_info_file):
     camera_info = []

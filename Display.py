@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # Page Title
-st.title("Lorem ipsum dolor!")
+st.title("Peanutrobtics Spatial Image Search")
 
  #dropdown with everything 
 folder_path = "./embeddings.db"
@@ -28,15 +28,7 @@ st.write(f'using:{selected_ds}')
 # Create a form
 with st.form("prompt"):
     st.write("Prompt goes here:")
-    Prompt = st.text_input("Prompt")
-
-    #User_path will default to default_path if it is empty
-    st.write("Different dataset? (optional):")
-    default_path = '40777060/40777060_frames/lowres_wide.traj'
-
-    
-    st.title('File Selector App')
-    
+    Prompt = st.text_input("Prompt")    
    
 
     # Every form must have a submit button

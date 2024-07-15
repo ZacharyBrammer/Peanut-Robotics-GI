@@ -76,20 +76,31 @@ def process_images(dir_path, trajectory_path):
 
     counter = 0
     trajectories = open(trajectory_path, "r").read().split("\n")
+
     files = os.listdir(dir_path)
     files.sort(key=extract_number_from_filename)
 
+    # image size: 256 x 192
+    # Leftmost, Uppermost, Rightmost, Bottom        
+
     for file in tqdm(files):
+        print(file)
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+            
             image_path = os.path.join(dir_path, file)
             rotatedImages = rotateImage.rotate_image(Image.open(image_path))
-            embedding = gen_embeddings(rotatedImages)
-           
-            data.append({
-                'image_path': image_path,
-                'embedding': embedding,
-                'trajectory_data': trajectories[counter]
-            })
+            # embedding = gen_embeddings(rotatedImages)
+            
+            boxes = [(0, 0, 128, 96), (128, 0, 256, 96), (0, 96, 128, 192), (128, 96, 256, 192)]
+
+            for box in boxes:
+                embedding = gen_embeddings(rotatedImages.crop(box))
+
+                data.append({
+                    'image_path': image_path,
+                    'embedding': embedding,
+                    'trajectory_data': trajectories[counter]
+                })
 
             counter += 1
 
@@ -97,4 +108,4 @@ def process_images(dir_path, trajectory_path):
 
     return tbl
 
-
+# process_images("40777060/40777060_frames/lowres_wide", "40777060/40777060_frames/lowres_wide.traj")

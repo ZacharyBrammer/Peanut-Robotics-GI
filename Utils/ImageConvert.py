@@ -71,8 +71,8 @@ def process_images(dir_path, trajectory_path):
     print(dir_path.split('/'))
     
 
-    tbl = db.create_table(str(dir_path.split('/')[1]), schema=schema, mode="overwrite")
-    print("Created Table for " + str(Path(dir_path.split('/')[1])))
+    tbl = db.create_table(str(dir_path.split('/')[2]), schema=schema, mode="overwrite")
+    print("Created Table for " + str(Path(dir_path.split('/')[2])))
 
     data = []
 

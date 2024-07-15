@@ -20,9 +20,9 @@ st.set_page_config(
 st.title("Lorem ipsum dolor!")
 
  #dropdown with everything 
-folder_path = "./uploads"
+folder_path = "./embeddings.db"
 file_list = os.listdir(folder_path)
-selected_ds = st.selectbox('Select a table', file_list)
+selected_ds = st.selectbox('Select a table', file_list).split('.')[0]
 st.write(f'using:{selected_ds}')
 
 # Create a form
@@ -41,10 +41,12 @@ with st.form("prompt"):
 
     # Every form must have a submit button
     submitted = st.form_submit_button("Submit")
+
+    # /home/zac/GitHub/Peanut-Robotics-GI/embeddings.db
     
     if submitted:
         embbededText = embed_txt(Prompt)
-        imag = imageSearch(embbededText, "./embeddings.db/"+selected_ds+".lance")
+        imag = imageSearch(embbededText, selected_ds)
         image_path_str = str(imag.image_path.iloc[0])
         out = rotate_image(Image.open(image_path_str))
         # Use columns to place the image and graph side by side

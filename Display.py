@@ -17,13 +17,12 @@ st.set_page_config(
 )
 
 # Page Title
-st.title("Peanutrobtics Spatial Image Search")
+st.title("Peanut Robotics Spatial Image Search")
 
  #dropdown with everything 
 folder_path = "./embeddings.db"
 file_list = os.listdir(folder_path)
 selected_ds = st.selectbox('Select a table', file_list).split('.')[0]
-st.write(f'using:{selected_ds}')
 
 # Create a form
 with st.form("prompt"):

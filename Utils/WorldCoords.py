@@ -67,7 +67,7 @@ def load_img_info(dbname, img):
     # Load YOLO model
     config_path = os.path.abspath('Utils/yolov3.cfg')
     weights_path = os.path.abspath('Utils/yolov3.weights')
-    net = cv2.dnn.readNet(weights_path, config_path) 
+    net = cv2.dnn.readNet(weights_path, config_path)
     layer_names = net.getLayerNames()
     output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
 

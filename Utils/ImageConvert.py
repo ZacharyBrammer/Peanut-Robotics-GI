@@ -68,9 +68,7 @@ def process_images(dir_path, trajectory_path):
         ]
     )
 
-    print(dir_path.split('/'))
     
-
     tbl = db.create_table(str(dir_path.split('/')[2]), schema=schema, mode="overwrite")
     print("Created Table for " + str(Path(dir_path.split('/')[2])))
 
@@ -78,20 +76,31 @@ def process_images(dir_path, trajectory_path):
 
     counter = 0
     trajectories = open(trajectory_path, "r").read().split("\n")
+
     files = os.listdir(dir_path)
     files.sort(key=extract_number_from_filename)
 
+    # image size: 256 x 192
+    # Leftmost, Uppermost, Rightmost, Bottom        
+
     for file in tqdm(files):
+        print(file)
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+            
             image_path = os.path.join(dir_path, file)
             rotatedImages = rotateImage.rotate_image(Image.open(image_path))
-            embedding = gen_embeddings(rotatedImages)
-           
-            data.append({
-                'image_path': image_path,
-                'embedding': embedding,
-                'trajectory_data': trajectories[counter]
-            })
+            # embedding = gen_embeddings(rotatedImages)
+            
+            boxes = [(0, 0, rotatedImages.width/2, rotatedImages.height/2), (rotatedImages.width/2, 0, rotatedImages.width, rotatedImages.height/2), (0, rotatedImages.height/2, rotatedImages.width/2, rotatedImages.height), (rotatedImages.width/2, rotatedImages.height/2, rotatedImages.width, rotatedImages.height)]
+
+            for box in boxes:
+                embedding = gen_embeddings(rotatedImages.crop(box))
+
+                data.append({
+                    'image_path': image_path,
+                    'embedding': embedding,
+                    'trajectory_data': trajectories[counter]
+                })
 
             counter += 1
 
@@ -99,4 +108,4 @@ def process_images(dir_path, trajectory_path):
 
     return tbl
 
-
+# process_images("40777060/40777060_frames/lowres_wide", "40777060/40777060_frames/lowres_wide.traj")

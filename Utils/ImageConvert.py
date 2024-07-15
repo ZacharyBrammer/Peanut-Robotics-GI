@@ -91,7 +91,7 @@ def process_images(dir_path, trajectory_path):
             rotatedImages = rotateImage.rotate_image(Image.open(image_path))
             # embedding = gen_embeddings(rotatedImages)
             
-            boxes = [(0, 0, 128, 96), (128, 0, 256, 96), (0, 96, 128, 192), (128, 96, 256, 192)]
+            boxes = [(0, 0, rotatedImages.width/2, rotatedImages.height/2), (rotatedImages.width/2, 0, rotatedImages.width, rotatedImages.height/2), (0, rotatedImages.height/2, rotatedImages.width/2, rotatedImages.height), (rotatedImages.width/2, rotatedImages.height/2, rotatedImages.width, rotatedImages.height)]
 
             for box in boxes:
                 embedding = gen_embeddings(rotatedImages.crop(box))

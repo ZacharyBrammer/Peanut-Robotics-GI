@@ -84,7 +84,6 @@ def process_images(dir_path, trajectory_path):
     # Leftmost, Uppermost, Rightmost, Bottom        
 
     for file in tqdm(files):
-        print(file)
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             
             image_path = os.path.join(dir_path, file)

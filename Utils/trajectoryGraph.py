@@ -10,7 +10,7 @@ import Utils.WorldCoords as wc
 def graphTraj(x,y, file_path, imgname):
     print(file_path.split("/")[1])
     print(imgname)
-    wx, wy = wc.load_img_info(file_path.split("/")[1], imgname)
+    wx, wy = wc.load_img_info(file_path.split("/")[2], imgname)
 
     if (wx == None or wy == None):
         print("Error: Could not load image info")

@@ -32,14 +32,13 @@ with st.form("prompt"):
 
     # Every form must have a submit button
     submitted = st.form_submit_button("Submit")
-
-    # /home/zac/GitHub/Peanut-Robotics-GI/embeddings.db
     
     if submitted:
         embbededText = embed_txt(Prompt)
         imag = imageSearch(embbededText, selected_ds)
         image_path_str = str(imag.image_path.iloc[0])
         out = rotate_image(Image.open(image_path_str))
+        
         # Use columns to place the image and graph side by side
         col1, col2 = st.columns(2)
 

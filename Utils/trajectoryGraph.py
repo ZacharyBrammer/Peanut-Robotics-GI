@@ -4,9 +4,6 @@ import os
 import streamlit as st
 import Utils.WorldCoords as wc
 
-#r'40777060/40777060_frames/lowres_wide.traj
-# file_path = r'40777060\40777060_frames\lowres_wide.traj'
-
 def graphTraj(x,y, file_path, imgname):
     print(file_path.split("/")[1])
     print(imgname)

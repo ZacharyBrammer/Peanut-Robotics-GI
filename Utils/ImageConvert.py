@@ -1,9 +1,6 @@
 import os
-from io import BytesIO
 
-from enum import Enum
 from tqdm import tqdm
-import requests
 from pathlib import Path
 import regex as re
 

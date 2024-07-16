@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 import os
-import torch
-from Utils import rotateImage
 
 
 def load_camera_info(camera_info_file):

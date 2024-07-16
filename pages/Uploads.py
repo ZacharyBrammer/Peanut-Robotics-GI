@@ -12,9 +12,6 @@ if not os.path.exists(uploads_dir):
     os.makedirs(uploads_dir)
 
 st.set_page_config(page_title="Uploads")
-# Ensure the 'uploads' directory exists
-# if not os.path.exists('uploads'):
-#     os.makedirs('uploads')
 
 st.title('Image Upload')
 

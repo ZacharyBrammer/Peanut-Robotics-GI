@@ -73,13 +73,12 @@ def load_img_info(dbname, img):
             class_id = np.argmax(scores)
             confidence = scores[class_id]
 
-            if confidence >= 0.5:  # Confidence threshold (0-2)
+            if confidence >= 0.5:
                 center_x = int(object_detection[0] * image.shape[1])
                 center_y = int(object_detection[1] * image.shape[0])
                 cam_depth = get_distance_data(cam_depth)
                 depth_value = cam_depth[center_y, center_x]
 
-                # Back-Projection to 3D Camera Coordinates
                 X_c = (center_x - cx) * depth_value / fx
                 Y_c = (center_y - cy) * depth_value / fy
                 Z_c = depth_value
@@ -88,7 +87,6 @@ def load_img_info(dbname, img):
                     [X_c, Y_c, Z_c], dtype=np.float32).reshape(3, 1)
                 print("Original 3D Point in camera coordinates:\n", point_camera)
 
-                # Define the rotation matrix for 90 degrees about the z-axis
                 R_z = np.array([
                     [0, -1, 0],
                     [1, 0, 0],

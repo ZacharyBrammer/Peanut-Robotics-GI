@@ -18,7 +18,6 @@ from PIL import Image
 from Utils import rotateImage
 
 
-# load the pretrained model
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("RN50", device=device)
 # original model ViT-B/32
@@ -27,8 +26,6 @@ def gen_embeddings(image_path):
     image = preprocess(image_path).unsqueeze(0).to(device)
     embs = model.encode_image(image)
     return embs.detach().cpu().numpy()[0].tolist()
-
-# reads trajectory data file
 
 
 def read_trajectory(path):
@@ -39,7 +36,6 @@ def read_trajectory(path):
 def extract_number_from_filename(filename):
     pattern = r'\d+\.\d+\.png$'
 
-    # Use re.search to find the pattern in the filename
     match = re.search(pattern, filename)
 
     if match:

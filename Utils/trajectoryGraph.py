@@ -16,7 +16,6 @@ def graphTraj(x,y, file_path, imgname):
     
 
         
-    #read X and Y values of camera + list
     x_positions = []
     y_positions = []
 
@@ -27,7 +26,6 @@ def graphTraj(x,y, file_path, imgname):
             x_positions.append(float(values[-3]))
             y_positions.append(float(values[-2]))
     
-    #plot trajectory
     plt.figure(figsize=(10, 7))
     plt.plot(x_positions, y_positions, marker='s', ms=5, mfc='b',mec='b', color='c', label='Trajectory')
     plt.plot(x, y,marker='*', ms='15', mec='r', mfc='r', label = 'Position of camera')

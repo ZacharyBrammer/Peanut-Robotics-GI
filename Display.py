@@ -55,4 +55,4 @@ with st.form("prompt"):
         with col2:
             print(image_path_str)
             trajpath= "./uploads/"+selected_ds+"/"+selected_ds+"_frames/lowres_wide.traj"
-            graphTraj(imag_x, imag_y, trajpath, image_path_str.split("/")[5])  # 0,0 is a placeholder and will be replaced
+            graphTraj(imag_x, imag_y, trajpath, image_path_str.split("/")[5])  

@@ -8,8 +8,8 @@ def graphTraj(x,y, file_path, imgname):
     wx, wy = wc.load_img_info(file_path.split("/")[2], imgname)
 
     if (wx == None or wy == None):
-        print("Error: Could not load image info")
-        st.write('Confidence too low to find exact location.')
+        print("Confidence too low to find exact location of object in image.")
+        st.write('Confidence too low to find exact location of object in image.')
 
     
 

@@ -29,6 +29,7 @@ if uploaded_files:
         
         try:
             table = ImageConvert.process_images(os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide'), os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide.traj'))
-        except:
+        except Exception as e:
             st.write("An error has occured, please reupload file")
+            st.write("Error: "+e)
 

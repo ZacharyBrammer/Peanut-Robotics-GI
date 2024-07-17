@@ -74,11 +74,8 @@ def process_images(dir_path, trajectory_path):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
 
             image_path = os.path.join(dir_path, file)
-            print('\n')
-            print(dir_path)
-            print(file)
-            print(image_path)
-            print('\n')
+
+
             images = Image.open(image_path)
 
             boxes = [(0, 0, images.width/2, images.height/2), (images.width/2, 0, images.width, images.height/2), (0, images.height /

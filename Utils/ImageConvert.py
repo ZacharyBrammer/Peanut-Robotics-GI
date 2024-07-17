@@ -7,6 +7,7 @@ import regex as re
 import torch
 import clip
 import lancedb
+import streamlit as st
 
 import pyarrow as pa
 import pandas
@@ -46,6 +47,9 @@ def extract_number_from_filename(filename):
 
 def process_images(dir_path, trajectory_path):
     db = lancedb.connect('embeddings.db')
+    percent_complete =0
+    prog_text = 'unpacking your dataset...'
+    prog_bar = st.progress(0, text=prog_text)
 
     schema = pa.schema(
         [
@@ -62,11 +66,13 @@ def process_images(dir_path, trajectory_path):
     data = []
 
     counter = 0
+    progressCounter = 0
     trajectories = open(trajectory_path, "r").read().split("\n")
 
     files = os.listdir(dir_path)
     files.sort(key=extract_number_from_filename)
-
+    step= 100/len(files)
+    
     # image size: 256 x 192
     # Leftmost, Uppermost, Rightmost, Bottom
 
@@ -90,8 +96,14 @@ def process_images(dir_path, trajectory_path):
                     'trajectory_data': trajectories[counter]
                 })
 
+                progressCounter += 1
+                prog_bar.progress(progressCounter/(len(files) * 4), text=prog_text)
+
             counter += 1
+            # prog_bar.progress(percent_complete + step, text=prog_text)
+            
 
     tbl.add(data)
 
+    prog_bar.empty()
     return tbl

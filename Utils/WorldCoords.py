@@ -85,12 +85,7 @@ def load_img_info(dbname, img):
                     [X_c, Y_c, Z_c], dtype=np.float32).reshape(3, 1)
                 print("Original 3D Point in camera coordinates:\n", point_camera)
 
-                R_z = np.array([
-                    [0, -1, 0],
-                    [1, 0, 0],
-                    [0, 0, 1]
-                ], dtype=np.float32)
-                new_point_camera = np.dot(R_z, point_camera)
+               
                 x = point_camera[0, 0]
                 y = point_camera[1, 0]
                 z = point_camera[2, 0]

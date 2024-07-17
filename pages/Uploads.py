@@ -26,6 +26,10 @@ if uploaded_files:
         st.success(f"Saved file: {uploaded_file.name}")
         with zipfile.ZipFile(uploaded_file, "r") as z:
             z.extractall('uploads')
-            
-        table = ImageConvert.process_images(os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide'), os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide.traj'))
+        
+        try:
+            table = ImageConvert.process_images(os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide'), os.path.join('./uploads', databasename, databasename+'_frames', 'lowres_wide.traj'))
+        except Exception as e:
+            st.write("An error has occured, please reupload file")
+            st.write("Error: "+e)
 

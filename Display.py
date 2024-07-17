@@ -3,7 +3,7 @@ import os
 
 from Utils.TextConvert import embed_txt
 from Utils.ImageSearch import imageSearch
-from Utils.rotateImage import rotate_image
+
 from Utils.trajectoryGraph import graphTraj
 from PIL import Image
 
@@ -27,22 +27,25 @@ with st.form("prompt"):
     if submitted:
         embbededText = embed_txt(Prompt)
         imag = imageSearch(embbededText, selected_ds)
-        image_path_str = str(imag.image_path.iloc[0])
-        out = rotate_image(Image.open(image_path_str))
-        
-        col1, col2 = st.columns(2)
+        if imag.empty:
+            st.write("No data found, please try a different dataset or reupload the current one.")
+        else:
+            image_path_str = str(imag.image_path.iloc[0])
+            out = Image.open(image_path_str)
+            
+            col1, col2 = st.columns(2)
 
-        trajectory = imag['trajectory_data'].array[0].split()
+            trajectory = imag['trajectory_data'].array[0].split()
 
-        print(trajectory)
+            print(trajectory)
 
-        imag_x = float(trajectory[-3])
-        imag_y = float(trajectory[-2])
-        
-        with col1:
-            st.image(out, width = 330, caption= image_path_str + ", an image of " + Prompt)
-        
-        with col2:
-            print(image_path_str)
-            trajpath= "./uploads/"+selected_ds+"/"+selected_ds+"_frames/lowres_wide.traj"
-            graphTraj(imag_x, imag_y, trajpath, image_path_str.split("/")[5])
+            imag_x = float(trajectory[-3])
+            imag_y = float(trajectory[-2])
+            
+            with col1:
+                st.image(out, width = 330, caption= image_path_str + ", an image of " + Prompt)
+            
+            with col2:
+                print(image_path_str)
+                trajpath= "./uploads/"+selected_ds+"/"+selected_ds+"_frames/lowres_wide.traj"
+                graphTraj(imag_x, imag_y, trajpath, image_path_str.split("/")[5])

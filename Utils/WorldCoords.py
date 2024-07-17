@@ -85,19 +85,14 @@ def load_img_info(dbname, img):
                     [X_c, Y_c, Z_c], dtype=np.float32).reshape(3, 1)
                 print("Original 3D Point in camera coordinates:\n", point_camera)
 
-                R_z = np.array([
-                    [0, -1, 0],
-                    [1, 0, 0],
-                    [0, 0, 1]
-                ], dtype=np.float32)
-                point_camera_rotated = np.dot(R_z, point_camera)
-                rotated_x = point_camera_rotated[0, 0]
-                rotated_y = point_camera_rotated[1, 0]
-                rotated_z = point_camera_rotated[2, 0]
+               
+                x = point_camera[0, 0]
+                y = point_camera[1, 0]
+                z = point_camera[2, 0]
 
                 print(
-                    f"Rotated 3D Coordinates in Camera Frame: X_c={rotated_x}, Y_c={rotated_y}, Z_c={rotated_z}")
-                return rotated_x, rotated_y
+                    f"3D Coordinates in Camera Frame: X_c={x}, Y_c={y}, Z_c={z}")
+                return x, y
 
     if (confidence < 0.5):
         return None, None

@@ -12,7 +12,6 @@ import pyarrow as pa
 import pandas
 from PIL import Image
 
-from Utils import rotateImage
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -75,13 +74,15 @@ def process_images(dir_path, trajectory_path):
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
 
             image_path = os.path.join(dir_path, file)
-            rotatedImages = rotateImage.rotate_image(Image.open(image_path))
 
-            boxes = [(0, 0, rotatedImages.width/2, rotatedImages.height/2), (rotatedImages.width/2, 0, rotatedImages.width, rotatedImages.height/2), (0, rotatedImages.height /
-                                                                                                                                                      2, rotatedImages.width/2, rotatedImages.height), (rotatedImages.width/2, rotatedImages.height/2, rotatedImages.width, rotatedImages.height)]
+
+            images = Image.open(image_path)
+
+            boxes = [(0, 0, images.width/2, images.height/2), (images.width/2, 0, images.width, images.height/2), (0, images.height /
+                                    2, images.width/2, images.height), (images.width/2, images.height/2, images.width, images.height)]
 
             for box in boxes:
-                embedding = gen_embeddings(rotatedImages.crop(box))
+                embedding = gen_embeddings(images.crop(box))
 
                 data.append({
                     'image_path': image_path,

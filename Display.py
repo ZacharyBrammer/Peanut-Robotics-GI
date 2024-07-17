@@ -28,7 +28,7 @@ with st.form("prompt"):
         embbededText = embed_txt(Prompt)
         imag = imageSearch(embbededText, selected_ds)
         if imag.empty:
-            st.write("No image found")
+            st.write("No data found, please try a different dataset or reupload the current one.")
         else:
             image_path_str = str(imag.image_path.iloc[0])
             out = Image.open(image_path_str)

@@ -90,10 +90,10 @@ def load_img_info(dbname, img):
                     [1, 0, 0],
                     [0, 0, 1]
                 ], dtype=np.float32)
-                point_camera = np.dot(R_z, point_camera)
-                x = point_camera[0, 0]
-                y = point_camera[1, 0]
-                z = point_camera[2, 0]
+                new_point_camera = np.dot(R_z, new_point_camera)
+                x = new_point_camera[0, 0]
+                y = new_point_camera[1, 0]
+                z = new_point_camera[2, 0]
 
                 print(
                     f"3D Coordinates in Camera Frame: X_c={x}, Y_c={y}, Z_c={z}")

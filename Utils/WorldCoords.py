@@ -1,6 +1,7 @@
+import os
+
 import cv2
 import numpy as np
-import os
 
 
 def load_camera_info(camera_info_file):
@@ -85,7 +86,6 @@ def load_img_info(dbname, img):
                     [X_c, Y_c, Z_c], dtype=np.float32).reshape(3, 1)
                 print("Original 3D Point in camera coordinates:\n", point_camera)
 
-               
                 x = point_camera[0, 0]
                 y = point_camera[1, 0]
                 z = point_camera[2, 0]

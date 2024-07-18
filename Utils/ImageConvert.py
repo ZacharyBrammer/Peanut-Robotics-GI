@@ -1,23 +1,20 @@
 import os
-
-from tqdm import tqdm
 from pathlib import Path
-import regex as re
 
-import torch
 import clip
 import lancedb
-import streamlit as st
-
-import pyarrow as pa
 import pandas
+import pyarrow as pa
+import regex as re
+import streamlit as st
+import torch
 from PIL import Image
-
-
+from tqdm import tqdm
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("RN50", device=device)
 # original model ViT-B/32
+
 
 def gen_embeddings(image_path):
     image = preprocess(image_path).unsqueeze(0).to(device)
@@ -47,7 +44,7 @@ def extract_number_from_filename(filename):
 
 def process_images(dir_path, trajectory_path):
     db = lancedb.connect('embeddings.db')
-    percent_complete =0
+    percent_complete = 0
     prog_text = 'unpacking your dataset...'
     prog_bar = st.progress(0, text=prog_text)
 
@@ -71,8 +68,8 @@ def process_images(dir_path, trajectory_path):
 
     files = os.listdir(dir_path)
     files.sort(key=extract_number_from_filename)
-    step= 100/len(files)
-    
+    step = 100/len(files)
+
     # image size: 256 x 192
     # Leftmost, Uppermost, Rightmost, Bottom
 
@@ -81,11 +78,10 @@ def process_images(dir_path, trajectory_path):
 
             image_path = os.path.join(dir_path, file)
 
-
             images = Image.open(image_path)
 
             boxes = [(0, 0, images.width/2, images.height/2), (images.width/2, 0, images.width, images.height/2), (0, images.height /
-                                    2, images.width/2, images.height), (images.width/2, images.height/2, images.width, images.height)]
+                                                                                                                   2, images.width/2, images.height), (images.width/2, images.height/2, images.width, images.height)]
 
             for box in boxes:
                 embedding = gen_embeddings(images.crop(box))
@@ -97,11 +93,11 @@ def process_images(dir_path, trajectory_path):
                 })
 
                 progressCounter += 1
-                prog_bar.progress(progressCounter/(len(files) * 4), text=prog_text)
+                prog_bar.progress(
+                    progressCounter/(len(files) * 4), text=prog_text)
 
             counter += 1
             # prog_bar.progress(percent_complete + step, text=prog_text)
-            
 
     tbl.add(data)
 
